@@ -153,9 +153,9 @@ eslint, globals, @eslint/js, typescript-eslint, eslint-plugin-react> No / **Yes*
 npm i -D  @eslint/compat
 ```
 
-#### 3.4 eslint.config.mjs 設定
+#### 3.4 eslint.config.js 設定
 
-`eslint.config.mjs`を以下のように修正する
+`eslint.config.js`を以下のように修正する
 
 ```javascript
 import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
@@ -254,7 +254,7 @@ npm i -D vite-tsconfig-paths
 
 #### 4.3 vite.config.ts 設定
 
-`tsconfig.json`を以下のように修正する
+`vite.config.ts`を以下のように修正する
 
 ```typescript
 import { defineConfig } from "vite";
