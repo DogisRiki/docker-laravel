@@ -8,7 +8,12 @@ services:
       - 8000:8000
     tty: true
     volumes:
-      - ./backend:/app
+      - type: bind
+        source: ./backend
+        target: /app
+      - type: volume
+        source: vendor
+        target: /app/vendor
     depends_on:
       - db
     configs:
@@ -67,6 +72,8 @@ volumes:
     name: named-mysql-data
   node_modules:
     name: named-node_modules
+  vendor:
+    name: named-vendor
 
 configs:
   php_config:

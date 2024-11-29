@@ -15,6 +15,7 @@
         "laravel/tinker": "^2.9"
     },
     "require-dev": {
+        "askdkc/breezejp": "^1.8",
         "fakerphp/faker": "^1.23",
         "laravel/breeze": "^2.2",
         "laravel/pail": "^1.1",
@@ -61,7 +62,8 @@
             "php artisan cache:clear",
             "php artisan config:clear",
             "php artisan route:clear",
-            "php artisan view:clear"
+            "php artisan view:clear",
+            "php artisan optimize:clear"
         ],
         "migrate-fresh": "php artisan migrate:fresh --seed",
         "serve": "php artisan serve --host 0.0.0.0"

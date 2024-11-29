@@ -6,4 +6,8 @@ Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
 
-require __DIR__.'/auth.php';
+// Route::get('/reset-password/{token}', function ($token) {
+//     return response()->json(['token' => $token]);
+// })->middleware('guest')->name('password.reset');
+
+require __DIR__ . '/auth.php';
