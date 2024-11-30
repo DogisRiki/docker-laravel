@@ -20,7 +20,7 @@ services:
       - source: php_config
         target: /usr/local/etc/php/php.ini
     networks:
-    - my-network
+      - my-network
 
   frontend:
     container_name: react

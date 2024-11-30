@@ -28,6 +28,11 @@ class PasswordResetLinkController extends Controller
             $request->only('email')
         );
 
+        // ユーザーが見つからない場合も､リセットリンクを送ったことにする(デフォルトだとメアドが登録されているかどうかばれてしまうので)
+        if ($status == Password::INVALID_USER) {
+            $status = Password::RESET_LINK_SENT;
+        }
+
         if ($status != Password::RESET_LINK_SENT) {
             throw ValidationException::withMessages([
                 'email' => [__($status)],

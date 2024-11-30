@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Log;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,18 +21,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Log::info("==============bootStart==============");
-        ResetPassword::createUrlUsing(function ($user, string $token) {
-            Log::info("ResetPassword:",  [
-                "token" => $token,
-                "email" => $user->getEmailForPasswordReset(),
-            ]);
-            // フロントエンドのURLを取得
-            $frontendUrl = config('app.frontend_url', env('FRONTEND_URL'));
-            Log::info("frontendUrl", $frontendUrl);
-
-            // フロントエンド向けのパスワードリセットリンクを生成
-            return "{$frontendUrl}/reset-password?token={$token}&email={$user->getEmailForPasswordReset()}";
+        ResetPassword::createUrlUsing(function (User $user, string $token) {
+            return url(route('password.reset'), [
+                'token' => $token,
+                'email' => $user->getEmailForPasswordReset(),
+            ], false);
         });
     }
 }
