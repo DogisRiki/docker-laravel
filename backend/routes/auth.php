@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\TokenValidationController;
 use Illuminate\Support\Facades\Route;
 
 // APIルート (認証用)
@@ -22,9 +23,9 @@ Route::prefix('api')->name('api.')->group(function () {
         ->middleware('guest')
         ->name('password.email');
 
-    Route::get('/reset-password', [NewPasswordController::class, 'store'])
+    Route::post('/reset-password', [NewPasswordController::class, 'store'])
         ->middleware('guest')
-        ->name('password.reset');
+        ->name('password.store');
 
     Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)
         ->middleware(['auth', 'signed', 'throttle:6,1'])
@@ -37,9 +38,8 @@ Route::prefix('api')->name('api.')->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
         ->middleware('auth')
         ->name('logout');
-});
 
-// Webルート: パスワードリセット用 (webグループ)
-// Route::get('/reset-password/{token}', [NewPasswordController::class, 'showResetForm'])
-//     ->middleware('guest')
-//     ->name('password.reset');
+    Route::post('/reset-password/check', [TokenValidationController::class, 'checkToken'])
+        ->middleware('guest')
+        ->name('password.token-check');
+});

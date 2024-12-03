@@ -17,7 +17,7 @@ export interface RegisterData {
 }
 
 /**
- * パスワード忘れ情報
+ * パスワードリセットリンク送信情報
  */
 export interface ForgotPasswordData {
     email: string;
@@ -28,6 +28,7 @@ export interface ForgotPasswordData {
  */
 export interface ResetPasswordData {
     token: string;
+    email: string;
     password: string;
     password_confirmation: string;
 }
@@ -35,7 +36,15 @@ export interface ResetPasswordData {
 /**
  * ユーザー情報
  */
-export type AuthUser = {
+export interface AuthUser {
     id: string;
     name: string;
-};
+}
+
+/**
+ * トークンチェック情報
+ */
+export interface tokenCheckData {
+    token: string;
+    email: string;
+}

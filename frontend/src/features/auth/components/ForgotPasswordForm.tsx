@@ -2,26 +2,38 @@ import { Button } from "@/components/Button";
 import { TextField } from "@/components/TextFiled";
 import { Typography } from "@/components/Typography";
 import { useForgotPassword } from "@/features/auth/hooks/useForgotPassword";
+import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { Box } from "@mui/material";
 import { useState } from "react";
 
 /**
- * パスワードリセットフォーム
+ * パスワードリセットリンク送信フォーム
  */
 export const ForgotPasswordForm = () => {
     const { handleForgotPassword } = useForgotPassword();
     const [email, setEmail] = useState("");
+    const { generalError, handleError, resetErrors } = useErrorHandler();
 
     /**
-     * パスワードリセット処理
+     * パスワードリセットリンク送信処理
      */
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        await handleForgotPassword({ email });
+        resetErrors();
+        try {
+            await handleForgotPassword({ email });
+        } catch (error) {
+            handleError(error);
+        }
     };
 
     return (
         <Box component="form" onSubmit={onSubmit} sx={{ maxWidth: 400, mx: "auto" }}>
+            {generalError && (
+                <Typography color="error" sx={{ mb: 2 }}>
+                    {generalError}
+                </Typography>
+            )}
             <Typography variant="h6" gutterBottom>
                 パスワードリセット
             </Typography>

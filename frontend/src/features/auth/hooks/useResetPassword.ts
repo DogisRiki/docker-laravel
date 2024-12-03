@@ -1,7 +1,7 @@
 import { ROUTES } from "@/configs/routes";
-import { resetPassword } from "@/features/auth/api/resetPassword";
+import { checkResetToken, resetPassword } from "@/features/auth/api/resetPassword";
 import { useAuthStore } from "@/features/auth/stores/authStore";
-import { ResetPasswordData } from "@/features/auth/types/authTypes";
+import { ResetPasswordData, tokenCheckData } from "@/features/auth/types/authTypes";
 import { useNavigate } from "react-router-dom";
 
 /**
@@ -13,9 +13,14 @@ export const useResetPassword = () => {
 
     const handleResetPassword = async (data: ResetPasswordData) => {
         await resetPassword(data);
-        alert("パスワードをリセットしました。ログイン画面へ遷移します。");
         setLogout();
+        alert("パスワードをリセットしました。");
         navigate(ROUTES.LOGIN);
     };
-    return { handleResetPassword };
+
+    const handleCheckResetToken = async (data: tokenCheckData) => {
+        await checkResetToken(data);
+    };
+
+    return { handleResetPassword, handleCheckResetToken };
 };

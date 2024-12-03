@@ -3,6 +3,7 @@ import { TextField } from "@/components/TextFiled";
 import { Typography } from "@/components/Typography";
 import { useRegister } from "@/features/auth/hooks/useRegister";
 import { RegisterData } from "@/features/auth/types/authTypes";
+import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { Box } from "@mui/material";
 import React, { useState } from "react";
 
@@ -11,6 +12,7 @@ import React, { useState } from "react";
  */
 export const RegisterForm = () => {
     const { handleRegister } = useRegister();
+    const { errors, handleError, resetErrors } = useErrorHandler();
 
     const [formData, setFormData] = useState<RegisterData>({
         name: "",
@@ -35,8 +37,13 @@ export const RegisterForm = () => {
      */
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        await handleRegister(formData);
-        setFormData({ name: "", email: "", password: "", password_confirmation: "" });
+        resetErrors();
+        try {
+            await handleRegister(formData);
+            setFormData({ name: "", email: "", password: "", password_confirmation: "" });
+        } catch (error) {
+            handleError(error);
+        }
     };
 
     return (
@@ -51,6 +58,8 @@ export const RegisterForm = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
+                error={!!errors.name}
+                helperText={errors.name ? errors.name[0] : ""}
                 sx={{ mb: 2 }}
             />
             <TextField
@@ -61,6 +70,8 @@ export const RegisterForm = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
+                error={!!errors.email}
+                helperText={errors.email ? errors.email[0] : ""}
                 sx={{ mb: 2 }}
             />
             <TextField
@@ -71,6 +82,8 @@ export const RegisterForm = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
+                error={!!errors.password}
+                helperText={errors.password ? errors.password[0] : ""}
                 sx={{ mb: 2 }}
             />
             <TextField
@@ -80,6 +93,8 @@ export const RegisterForm = () => {
                 type="password"
                 name="password_confirmation"
                 value={formData.password_confirmation}
+                error={!!errors.password_confirmation}
+                helperText={errors.password_confirmation ? errors.password_confirmation[0] : ""}
                 onChange={handleChange}
                 sx={{ mb: 2 }}
             />

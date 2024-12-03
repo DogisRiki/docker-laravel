@@ -21,7 +21,7 @@ export const PasswordReset = () => {
             <Typography variant="h4" gutterBottom>
                 パスワードリセット
             </Typography>
-            <Typography variant="body1" gutterBottom>
+            <Typography variant="body1" sx={{ mb: 2 }}>
                 パスワードリセットのために必要な情報を入力してください。
             </Typography>
             <ResetPasswordForm />

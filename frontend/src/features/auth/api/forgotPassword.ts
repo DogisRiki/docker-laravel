@@ -2,7 +2,7 @@ import { ForgotPasswordData } from "@/features/auth/types/authTypes";
 import { apiClient } from "@/lib/apiClient";
 
 /**
- * パスワード忘れAPI
+ * パスワードリセットリンク送信API
  * @param data パスワードリセット用のメールアドレス
  */
 export const forgotPassword = async (data: ForgotPasswordData): Promise<void> => {

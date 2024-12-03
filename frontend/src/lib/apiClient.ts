@@ -6,7 +6,7 @@ import axios from "axios";
  */
 export const apiClient = axios.create({
     baseURL: import.meta.env.VITE_API_URL, // リクエストURL
-    timeout: 3000, // タイムアウト設定
+    // timeout: 3000, // タイムアウト設定
     withCredentials: true, // リクエストヘッダーにCookieを含めることを許可する
     headers: {
         "Content-Type": "application/json",
@@ -42,7 +42,6 @@ apiClient.interceptors.response.use(
         // Axiosエラーかどうかを判定
         if (axios.isAxiosError(error)) {
             const status = error.response?.status;
-            const message = error.response?.data?.message; // サーバーから返却されたエラーメッセージ
             switch (status) {
                 case 401:
                     // 認証不足
@@ -55,8 +54,10 @@ apiClient.interceptors.response.use(
                     break;
                 case 422:
                     // バリデーションエラー
-                    alert(message);
-                    break;
+                    return Promise.reject({
+                        message: error.response?.data?.message || "",
+                        errors: error.response?.data?.errors || {},
+                    });
                 case 500:
                     // サーバーエラー
                     alert("サーバーエラーが発生しました。");

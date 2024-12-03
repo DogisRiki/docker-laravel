@@ -1,4 +1,4 @@
-import { ResetPasswordData } from "@/features/auth/types/authTypes";
+import { ResetPasswordData, tokenCheckData } from "@/features/auth/types/authTypes";
 import { apiClient } from "@/lib/apiClient";
 
 /**
@@ -8,4 +8,13 @@ import { apiClient } from "@/lib/apiClient";
 export const resetPassword = async (data: ResetPasswordData): Promise<void> => {
     await apiClient.get("/sanctum/csrf-cookie");
     await apiClient.post("/reset-password", data);
+};
+
+/**
+ * リセットトークンチェックAPI
+ * @param data トークン、メールアドレス
+ */
+export const checkResetToken = async (data: tokenCheckData): Promise<void> => {
+    await apiClient.get("/sanctum/csrf-cookie");
+    await apiClient.post("/reset-password/check", data);
 };
