@@ -2,7 +2,7 @@
 
 ## 前提条件
 
-以下のツールがインストールされている必要があります。
+以下のツールが全てインストールされていること。
 
 - Git
 - Docker および Docker Compose
@@ -15,7 +15,7 @@
 
 ### 1. リポジトリをクローン
 
-GitHub からプロジェクトをクローンします。
+GitHub からプロジェクトをクローンする。
 
 ```bash
 git clone git@github.com:DogisRiki/docker-laravel.git
@@ -55,7 +55,7 @@ Ctrl+Shift+P キーを押下し、以下コマンドを実行する。docker/bac
 Dev Containers: Open Folder in Container...
 ```
 
-ビルドが完了するまで待つ（初回ビルドだけ少し時間がかかる）
+ビルドが完了するまで待つ。（初回ビルドだけ少し時間がかかる）
 
 #### 3.2 依存関係のインストール
 
@@ -79,7 +79,7 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-.env の下記項目を上書き及び追加する
+.env の下記項目を上書き及び追加する。
 
 ```
 APP_TIMEZONE=Asia/Tokyo
@@ -119,7 +119,7 @@ composer clear
 composer serve
 ```
 
-以下の URL にアクセスし、正常に表示されることを確認
+以下の URL にアクセスし、正常に表示されることを確認する。
 
 - Laravel ウェルカムページ(バージョン情報が返れば OK)
   - http://localhost:8000/
@@ -154,7 +154,7 @@ npm i
 npm run dev
 ```
 
-以下の URL にアクセスし、正常に表示されることを確認
+以下の URL にアクセスし、正常に表示されることを確認する。
 
 - ログイン画面
   - http://localhost:5173/
